@@ -2,6 +2,8 @@ const cron = require("node-cron");
 const express = require("express");
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport")
+const  dotenv = require("dotenv").config()
+
 
 const app = express();
 
@@ -14,31 +16,37 @@ const account = nodemailer.createTestAccount((err, testaccount) => {
     return testaccount;
 });
 
-let task = cron.schedule("* * * * *", ()=>{
+let task = cron.schedule("00 00 08 * * *", ()=>{
 let startTime = new Date().getSeconds()
 
         console.log("running cron job")
     let transporter = nodemailer.createTransport(smtpTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
+        service: "gmail",
+        host: process.env.host,
          auth: {
-            user: "pdnlplr2oe342g4f@ethereal.email",
-            pass: "Zj6vhqnkXaKWkefCJj"
+            user: process.env.user,
+            pass: process.env.pass
         }
 
     }))
 
     const mailOptions = {
-        from: "pdnlplr2oe342g4f@ethereal.email",
-        to: "phawazzzy@gmail.com",
+        from: process.env.user,
+        to: "phemstars@gmail.com",
         subject: "hello there!",
         text: "hello test nodejs cron",
-        html: `<b> A message from node js cron bear with us</b>`
+        html: `<b>Hello ${process.env.name}, hope you are doing well</b>
+        <p> It is more than a year now that you owe me money, i just want to let you know that i have not forgotten that
+        money ${process.env.amount} isnt a small amount you know.
+        </p>
+
+        <b><p> I assume you have forgotten that is why i wrote this script to remind you everyday </p></b>
+        <p> this mail will stop when you pay my money, best regards</p>
+        `
     }
     
     transporter.sendMail(mailOptions, (err, info) => {
-        console.log("info",info.messageId);
+        console.log("info",info.messageId); 
         if (err) {
             console.log(err.message)
         }
