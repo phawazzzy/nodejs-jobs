@@ -17,7 +17,7 @@ const account = nodemailer.createTestAccount((err, testaccount) => {
     return testaccount;
 });
 
-let task = cron.schedule("* * * * *", ()=>{
+let task = cron.schedule("00 00 08 * * *", ()=>{
     sendSms();
     console.log("running cron job")
     let transporter = nodemailer.createTransport(smtpTransport({
