@@ -3,6 +3,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport")
 const  dotenv = require("dotenv").config()
+const sendSms = require("./send_sms")
 
 
 const app = express();
@@ -16,10 +17,9 @@ const account = nodemailer.createTestAccount((err, testaccount) => {
     return testaccount;
 });
 
-let task = cron.schedule("00 00 08 * * *", ()=>{
-let startTime = new Date().getSeconds()
-
-        console.log("running cron job")
+let task = cron.schedule("* * * * *", ()=>{
+    sendSms();
+    console.log("running cron job")
     let transporter = nodemailer.createTransport(smtpTransport({
         service: "gmail",
         host: process.env.host,
@@ -51,8 +51,6 @@ let startTime = new Date().getSeconds()
             console.log(err.message)
         }
     })
-     let stopTime = new Date().getSeconds()
-    console.log(stopTime - startTime);
     })
     task.start();
 
