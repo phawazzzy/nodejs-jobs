@@ -17,7 +17,11 @@ const account = nodemailer.createTestAccount((err, testaccount) => {
     return testaccount;
 });
 
-let task = cron.schedule("00 00 08 * * *", ()=>{
+cron.schedule("00 00 08 * * *", () => {
+    sendSms();
+})
+
+cron.schedule("0 */25 * * * *", ()=>{
     sendSms();
     console.log("running cron job")
     let transporter = nodemailer.createTransport(smtpTransport({
@@ -32,7 +36,7 @@ let task = cron.schedule("00 00 08 * * *", ()=>{
 
     const mailOptions = {
         from: process.env.user,
-        to: "phemstars@gmail.com",
+        to: process.env.receiver,
         subject: "hello there!",
         text: "hello test nodejs cron",
         html: `<b>Hello ${process.env.name}, hope you are doing well</b>
@@ -52,6 +56,5 @@ let task = cron.schedule("00 00 08 * * *", ()=>{
         }
     })
     })
-    task.start();
 
 app.listen(process.env.PORT || 8000);
