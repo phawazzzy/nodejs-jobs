@@ -2,14 +2,12 @@ const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
-const message = `Mr yomi.
-This is Nurudeen, I'm sure you remember me right.
+const message = `Mr yomi. This is Nurudeen, I'm sure you remember me right.
 If you don't remember me, I'm the guy that you owe 56k.
-Please pay my money to this account.
-
-0241259669, wema
-0232673079, GTB
-Acct name: Agbaje Nurudeen
+Please pay my money to this account. \n 
+0241259669, wema \n
+0232673079, GTB \n
+Acct name: Agbaje Nurudeen \n
 
 Thank you.`
 
