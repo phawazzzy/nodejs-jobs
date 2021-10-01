@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,9 +14,10 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mailgun-js": "^0.22.0",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.10",
+    "nodemailer": "^6.6.5",
     "nodemailer-smtp-transport": "^2.7.4",
-    "twilio": "^3.48.1"
+    "twilio": "^3.68.0"
   }
 }
